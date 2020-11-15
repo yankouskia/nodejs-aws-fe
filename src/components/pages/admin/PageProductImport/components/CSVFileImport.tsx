@@ -44,7 +44,10 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
       // Get the presigned URL
       const response = await axios({
         method: 'GET',
-        url
+        url,
+        headers: {
+          'Content-Type': 'text/csv',
+        },
       })
       console.log('Response: ', response.data)
       console.log('Uploading: ', file)
@@ -57,7 +60,10 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
       console.log('Uploading to: ', response.data.uploadURL)
       const result = await fetch(response.data.uploadURL, {
         method: 'PUT',
-        body: blobData
+        body: blobData,
+        headers: {
+          'Content-Type': 'text/csv',
+        },
       })
       console.log('Result: ', result)
       // Final URL for the user doesn't need the query string params
